@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Skin Disease Classifier — Upload</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    .card { max-width: 640px; margin: auto; padding: 24px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .result { margin-top: 16px; padding: 12px; border-radius: 6px; background:#f6f8fa; }
+    .error { color: #b00020; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Skin Disease Classifier — Upload an image</h2>
+    <form id="uploadForm">
+      <input type="file" id="fileInput" name="file" accept="image/*" required />
+      <br><br>
+      <label>Confidence threshold (0-1): <input type="number" id="threshold" name="threshold" value="0.5" min="0" max="1" step="0.01"></label>
+      <br><br>
+      <button type="submit">Upload & Predict</button>
+    </form>
+
+    <div id="output" class="result" style="display:none;">
+      <h3>Result</h3>
+      <div id="details"></div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('uploadForm');
+    const output = document.getElementById('output');
+    const details = document.getElementById('details');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fileInput = document.getElementById('fileInput');
+      if (!fileInput.files.length) return alert('Please choose a file.');
+
+      const fd = new FormData();
+      fd.append('file', fileInput.files[0]);
+      fd.append('threshold', document.getElementById('threshold').value);
+
+      details.innerHTML = 'Uploading and predicting...';
+      output.style.display = 'block';
+
+      try {
+        const resp = await fetch('/predict', { method: 'POST', body: fd });
+        if (!resp.ok) {
+          const err = await resp.json();
+          details.innerHTML = `<p class="error">Error: ${err.error || resp.statusText}</p>`;
+          return;
+        }
+        const j = await resp.json();
+        details.innerHTML = `
+          <p><strong>Predicted:</strong> ${j.predicted}</p>
+          <p><strong>Confidence:</strong> ${j.confidence}</p>
+          <p><strong>Skin disease:</strong> ${j.disease}</p>
+        `;
+      } catch (err) {
+        details.innerHTML = `<p class="error">Network or server error: ${err}</p>`;
+      }
+    });
+  </script>
+</body>
+</html>
