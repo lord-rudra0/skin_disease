@@ -1,0 +1,80 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+dist/
+eggs/
+.eggs/
+*.egg-info/
+*.egg
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Virtual environments
+venv/
+ENV/
+env/
+.env
+.venv
+
+# IDEs and editors
+.idea/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Dataset and outputs (project-specific)
+# Ignore the repository dataset directory (and everything inside it)
+/skin-disease-datasaet/
+
+# Also ignore common dataset subfolders wherever they appear
+**/train_set/
+**/test_set/
+
+outputs/
+results/
+
+# Model files and checkpoints
+*.pth
+*.pt
+*.ckpt
+weights/
+checkpoints/
+models/
+logs/
+
+# Misc
+*.log
+*.sqlite3
+*.db
+
+# Editor swap / temp files
+*~
+*.swp
+*.swo
