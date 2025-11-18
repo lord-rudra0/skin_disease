@@ -35,7 +35,7 @@ def extract_deep_features(img_path):
     return deep_features.flatten()
 
 # Specify the main folder containing all the subfolders with labeled images
-main_folder = '/Users/vinayakprakash/Downloads/skin-disease-datasaet/train_set'  # Update with your dataset path
+main_folder = 'skin-disease-datasaet'
 
 # Automatically gather all image paths and corresponding labels
 images = []
@@ -47,6 +47,16 @@ for subdir, _, files in os.walk(main_folder):
             label = os.path.basename(subdir)  # The label is the subfolder name
             images.append(img_path)
             labels.append(label)
+
+# Diagnostics: show how many image paths were discovered and sample paths
+print(f"Discovered {len(images)} image files under '{main_folder}'.")
+if len(images) > 0:
+    print("First 5 image paths:")
+    for p in images[:5]:
+        print(" -", p)
+else:
+    # Helpful error when no images were found
+    raise FileNotFoundError(f"No image files found under '{main_folder}'. Check the path and ensure image files exist.")
 
 # Extract features using EfficientNetB0
 features = []

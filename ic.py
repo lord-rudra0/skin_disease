@@ -21,96 +21,30 @@ def extract_haralick_features(image):
     haralick = mahotas.features.haralick(gray).mean(axis=0)
     return haralick.tolist()
 
-# List of images with correct file paths
-images = [
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA- cellulitis/BA- cellulitis (1).webp',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA- cellulitis/BA- cellulitis (2).png',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA- cellulitis/BA- cellulitis (3).jpeg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA- cellulitis/BA- cellulitis (17).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA- cellulitis/BA- cellulitis (18).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA- cellulitis/BA- cellulitis (20).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA- cellulitis/BA- cellulitis (21).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA- cellulitis/BA- cellulitis (27).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA- cellulitis/BA- cellulitis (36).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA- cellulitis/BA- cellulitis (40).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA- cellulitis/BA- cellulitis (50).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA- cellulitis/BA- cellulitis (55).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA- cellulitis/BA- cellulitis (64).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA- cellulitis/BA- cellulitis (66).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA- cellulitis/BA- cellulitis (69).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA- cellulitis/BA- cellulitis (73).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA- cellulitis/BA- cellulitis (83).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA- cellulitis/BA- cellulitis (84).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA- cellulitis/BA- cellulitis (98).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA- cellulitis/BA- cellulitis (106).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA- cellulitis/BA- cellulitis (119).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA- cellulitis/BA- cellulitis (147).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA- cellulitis/BA- cellulitis (155).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA-impetigo/2_BA-impetigo (16).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA-impetigo/9_BA-impetigo (42).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA-impetigo/10_BA-impetigo (89).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA-impetigo/18_BA-impetigo (82).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA-impetigo/22_BA-impetigo (55).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA-impetigo/27_BA-impetigo (54).jpg ',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA-impetigo/28_BA-impetigo (6).jpeg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA-impetigo/29_BA-impetigo (22).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA-impetigo/31_BA-impetigo (26).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA-impetigo/41_BA-impetigo (89).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA-impetigo/42_BA-impetigo (2).png',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA-impetigo/49_BA-impetigo (17).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA-impetigo/50_BA-impetigo (38).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA-impetigo/59_BA-impetigo (6).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA-impetigo/60_BA-impetigo (3).png',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA-impetigo/62_BA-impetigo (23).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA-impetigo/64_BA-impetigo (2).png',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA-impetigo/88_BA-impetigo (67).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA-impetigo/89_BA-impetigo (86).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/BA-impetigo/98_BA-impetigo (74).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/FU-athlete-foot/FU-athlete-foot (1).jpeg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/FU-athlete-foot/FU-athlete-foot (1).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/FU-athlete-foot/FU-athlete-foot (1).png',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/FU-athlete-foot/FU-athlete-foot (2).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/FU-athlete-foot/FU-athlete-foot (3).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/FU-athlete-foot/FU-athlete-foot (4).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/FU-athlete-foot/FU-athlete-foot (5).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/FU-athlete-foot/FU-athlete-foot (6).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/FU-athlete-foot/FU-athlete-foot (7).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/FU-athlete-foot/FU-athlete-foot (8).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/FU-athlete-foot/FU-athlete-foot (9).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/FU-athlete-foot/FU-athlete-foot (10).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/FU-athlete-foot/FU-athlete-foot (11).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/FU-athlete-foot/FU-athlete-foot (12).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/FU-athlete-foot/FU-athlete-foot (13).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/FU-athlete-foot/FU-athlete-foot (14).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/FU-athlete-foot/FU-athlete-foot (15).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/FU-athlete-foot/FU-athlete-foot (16).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/FU-athlete-foot/FU-athlete-foot (17).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/FU-athlete-foot/FU-athlete-foot (18).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/FU-athlete-foot/FU-athlete-foot (19).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/FU-athlete-foot/FU-athlete-foot (20).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/FU-athlete-foot/FU-athlete-foot (21).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/FU-athlete-foot/FU-athlete-foot (22).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/FU-athlete-foot/FU-athlete-foot (23).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/FU-athlete-foot/FU-athlete-foot (24).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/FU-athlete-foot/FU-athlete-foot (25).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/FU-athlete-foot/FU-athlete-foot (26).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/FU-athlete-foot/FU-athlete-foot (27).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/FU-athlete-foot/FU-athlete-foot (28).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/FU-athlete-foot/FU-athlete-foot (29).jpg',
-    '/Users/vinayakprakash/Downloads/skin-disease-datasaet/test_set/FU-athlete-foot/FU-athlete-foot (30).jpg'
-]
+# Dynamically discover image files under the local dataset folder so this script
+# is portable (avoid hard-coded absolute paths).
+main_folder = 'skin-disease-datasaet'
+images = []
+labels = []
+for subdir, _, files in os.walk(main_folder):
+    for file in files:
+        if file.lower().endswith(('.png', '.jpg', '.jpeg', '.webp')):
+            # strip filename whitespace to avoid trailing-space issues that
+            # appeared in some committed lists (e.g. '... (54).jpg ').
+            filename = file.strip()
+            img_path = os.path.join(subdir, filename)
+            images.append(img_path)
+            # label by the containing folder name and strip extra whitespace
+            labels.append(os.path.basename(subdir).strip())
 
-# Corresponding labels
-labels = [
-    'BA-cellulitis(1)', 'BA-cellulitis(2)', 'BA-cellulitis(3)',
-    'cellulitis (17)', 'cellulitis (18)', 'cellulitis (20)',
-    'cellulitis (21)', 'cellulitis (27)', 'cellulitis (36)',
-    'cellulitis (40)', 'cellulitis (50)', 'cellulitis (55)',
-    'cellulitis (64)', 'cellulitis (66)', 'cellulitis (69)',
-    'cellulitis (73)', 'cellulitis (83)', 'cellulitis (84)',
-    'cellulitis (98)', 'cellulitis (106)', 'cellulitis (119)',
-    'cellulitis (147)', 'cellulitis (155)','2_BA-impetigo (16)',
-]
+# Diagnostics
+print(f"Discovered {len(images)} image files under '{main_folder}'.")
+if len(images) > 0:
+    print("Sample paths:")
+    for p in images[:5]:
+        print(" -", p)
+else:
+    raise FileNotFoundError(f"No image files found under '{main_folder}'. Check that the dataset folder exists and contains images.")
 
 # Extract features
 features = []
