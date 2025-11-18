@@ -17,6 +17,7 @@ from tensorflow.keras.applications import EfficientNetB0
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.applications.efficientnet import preprocess_input
 from scipy.stats import uniform
+import joblib
 
 # Fix SSL certificate issue
 os.environ['SSL_CERT_FILE'] = certifi.where()
@@ -81,7 +82,7 @@ df['label'] = le.fit_transform(df['label'])
 # Split data
 X = df.drop('label', axis=1)
 y = df['label']
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42, stratify=y)
 
 # Handle class imbalance using SMOTE
 smote = SMOTE(random_state=42)
@@ -132,7 +133,9 @@ print(classification_report(y_test, y_pred, target_names=le.classes_))
 conf_matrix = confusion_matrix(y_test, y_pred)
 sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues', xticklabels=le.classes_, yticklabels=le.classes_)
 plt.title('Confusion Matrix')
-plt.show()
+# Save confusion matrix for headless/demo use
+plt.savefig('confusion_matrix.png', bbox_inches='tight')
+plt.close()
 
 # Predict probabilities for ROC curve
 y_prob = ensemble_model.predict_proba(X_test)
@@ -160,7 +163,19 @@ plt.xlabel('False Positive Rate')
 plt.ylabel('True Positive Rate')
 plt.title('Receiver Operating Characteristic (ROC) Curve')
 plt.legend(loc="lower right")
-plt.show()
+# Save ROC plot for headless/demo use
+plt.savefig('roc_curve.png', bbox_inches='tight')
+plt.close()
+
+# Persist trained artifacts for demo/reproducibility
+joblib.dump(ensemble_model, 'ensemble_model.joblib')
+joblib.dump(scaler, 'scaler.joblib')
+joblib.dump(le, 'label_encoder.joblib')
+try:
+    # rf is a GridSearchCV instance; save its best estimator too
+    joblib.dump(rf.best_estimator_, 'best_rf.joblib')
+except Exception:
+    pass
 
 # Cross-validation to ensure robustness
 scores = cross_val_score(ensemble_model, X, y, cv=10, scoring='accuracy')

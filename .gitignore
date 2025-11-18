@@ -74,7 +74,7 @@ logs/
 *.log
 *.sqlite3
 *.db
-
+*joblib
 # Editor swap / temp files
 *~
 *.swp
