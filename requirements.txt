@@ -1,0 +1,18 @@
+# Inferred project dependencies based on imports in the repository
+# Pin versions as needed for reproducibility. These are unpinned suggestions.
+numpy
+pandas
+opencv-python
+mahotas
+matplotlib
+seaborn
+scikit-learn
+imbalanced-learn
+tensorflow
+scipy
+certifi
+Pillow
+
+# Optional / helper tools you may want
+# tqdm
+# jupyter
